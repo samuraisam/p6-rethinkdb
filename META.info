@@ -1,0 +1,7 @@
+{
+  "name":           "RethinkDB",
+  "version":       "*",
+  "description":   "Client library for RethinkDB",
+  "depends":       ["Protocol-Buffers"],
+  "source-url":    ""
+}
