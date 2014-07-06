@@ -2,6 +2,6 @@
   "name":           "RethinkDB",
   "version":       "*",
   "description":   "Client library for RethinkDB",
-  "depends":       ["Protocol-Buffers"],
+  "depends":       ["Protocol-Buffers", "JSON::Tiny"],
   "source-url":    ""
 }

@@ -1,7 +1,9 @@
+use RethinkDB::Proto;
+
 class RethinkDB::Connection;
 
-has Int $.proto-version = 0x5f75e83e;
-has Int $.proto-type    = 0x7e6970c7;
+has Int $.proto-version = RethinkDB::Proto::VersionDummy.Version.V0_3;
+has Int $.proto-type    = RethinkDB::Proto::VersionDummy.Protocol.JSON;
 has Int $!counter       = 0;
 has Str $.host          = 'localhost';
 has Int $.port          = 28015;
