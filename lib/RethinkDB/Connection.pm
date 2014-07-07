@@ -1,4 +1,5 @@
 use RethinkDB::Proto;
+use RethinkDB::Exceptions;
 
 class RethinkDB::Connection;
 
@@ -11,10 +12,6 @@ has Int $.timeout is rw = 30;
 has Str $.db is rw;
 has Bool $!is-connected = False;
 has IO::Socket::INET $!connection;
-
-class X::RethinkDB is Exception {
-  has $.rc;
-}
 
 class X::RethinkDB::Connection is X::RethinkDB {
   method message {
@@ -70,6 +67,10 @@ method connect() {
   my $resp = $!connection.recv().chop(1); # get rid of the null byte
   X::RethinkDB::Connection.new(:rc($resp)).throw if $resp ne 'SUCCESS';
   $!is-connected = True;
+}
+
+method next-counter() {
+    $!counter++;
 }
 
 method is-connected() {
