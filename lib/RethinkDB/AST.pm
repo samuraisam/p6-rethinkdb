@@ -46,7 +46,7 @@ multi infix:<eqv>(RQL::Query $a, RQL::Query $b) is export {
 
 class RQL::TopLevelQuery is RQL::Query {
     method compose(@args, %optargs) {
-        @args <== %optargs.pairs.map({ [.key, '=', .value] });
+        @args <== %optargs.map({ [.key, '=', .value] });
         ['r.', $.string-type, '(', [@args], ')'];
     }
 }
