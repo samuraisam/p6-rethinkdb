@@ -8,7 +8,7 @@ use JSON::Tiny;
 my $tt = RethinkDB::Proto::Term.TermType;
 my $qt = RethinkDB::Proto::Query.QueryType;
 
-plan 5;
+plan 7;
 
 {
     # basic sanity test
@@ -29,4 +29,11 @@ plan 5;
     my $t = RQL::DB.new('dbname');
     my $q = RethinkDB::Query.new(:type($qt.START),:token(1),:term($t));
     ok from-json($q.json) eqv [$qt.START, [$tt.DB, ['dbname']], ().hash.item], "db query json";
+}
+{
+    # db send
+    my $t = RQL::DB.new('dbname');
+    my $c = RethinkDB::Connection.new;
+    ok $c.connect;
+    my $resp = $t.run: $c;
 }

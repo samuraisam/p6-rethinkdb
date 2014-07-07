@@ -1,0 +1,9 @@
+#!/usr/bin/env perl6
+
+use RethinkDB;
+use RethinkDB::AST;
+
+my $c = RethinkDB::Connection.new;
+$c.connect;
+
+say RQL::DB.new('dbname').run($c);

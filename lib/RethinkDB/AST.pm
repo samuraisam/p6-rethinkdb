@@ -1,14 +1,12 @@
-use RethinkDB::Connection;
 use RethinkDB::Proto;
-use RethinkDB::Exceptions;
 
-my $term-type = RethinkDB::Proto::Term.TermType;
-
-class X::RethinkDB::AST is X::RethinkDB {
+class X::RQL is X::RethinkDB {
     method message() {
-        "AST Error: $.rc";
+        "RQL Error: $.rc";
     }
 }
+
+my $term-type = RethinkDB::Proto::Term.TermType;
 
 class RQL::Query {
     has @.args;
@@ -20,8 +18,8 @@ class RQL::Query {
         self.bless(:args(@args.map: &expr), :optargs(%opts));
     }
 
-    method run(RethinkDB::Connection $c, *%global-optargs) {
-        $c.start(:term(self), :%global-optargs);
+    method run($c, *%global-optargs) {
+        $c.start(:term(self), :opts(%global-optargs));
     }
 
     method compose(@args, %optargs) {
@@ -74,7 +72,7 @@ class RQL::Datum is RQL::Query {
 
 sub expr($val, Int $nesting-depth = 20) {
     if $nesting-depth <= 0 {
-        X::RethinkDB::AST.new("Nesting depth limit exceeded.").throw;
+        X::RQL.new("Nesting depth limit exceeded.").throw;
     }
     do given $val {
         when (RQL::Query) { $val }
