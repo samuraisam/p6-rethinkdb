@@ -1,5 +1,5 @@
-constant CURDIR = IO::Spec.splitpath($?FILE)[1];
-constant FN = IO::Spec.catdir(CURDIR, 'Proto', 'ql2_13x.proto');
+constant CURDIR = $*SPEC.splitpath($?FILE)[1];
+constant FN = $*SPEC.catdir(CURDIR, 'Proto', 'ql2_13x.proto');
 
 module RethinkDB::Proto {
     use PB::Model::Generator FN;
